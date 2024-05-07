@@ -1,0 +1,77 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ambiences",
+  "info": {
+    "singularName": "ambience",
+    "pluralName": "ambiences",
+    "displayName": "Ambience",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "value": {
+      "type": "string",
+      "required": true,
+      "pluginOptions": {}
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "laboratory",
+        "class",
+        "others"
+      ],
+      "required": true,
+      "pluginOptions": {}
+    },
+    "availability": {
+      "type": "enumeration",
+      "enum": [
+        "available",
+        "unavailable"
+      ],
+      "required": true,
+      "pluginOptions": {}
+    },
+    "dependsOnReservation": {
+      "type": "boolean",
+      "default": true,
+      "required": true,
+      "pluginOptions": {}
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 255,
+      "pluginOptions": {}
+    },
+    "lock": {
+      "type": "string",
+      "pluginOptions": {}
+    },
+    "responsibles": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
+    },
+    "numberOfMachines": {
+      "type": "integer",
+      "pluginOptions": {}
+    },
+    "peopleCapacity": {
+      "type": "integer",
+      "pluginOptions": {}
+    },
+    "reservations": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::reservation.reservation",
+      "mappedBy": "ambience"
+    },
+    "computerSoftwares": {
+      "type": "text"
+    }
+  }
+}

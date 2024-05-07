@@ -1,0 +1,4 @@
+INSERT INTO semesters (id, initial_day_of_semester, last_day_of_semester,semester,current_semester, published_at) VALUES (1, '2023-02-06', '2023-06-30', '2023.1', false, '2023-09-04 14:30:00');
+INSERT INTO semesters (id, initial_day_of_semester, last_day_of_semester,semester,current_semester, published_at) VALUES (2, '2023-08-07', '2023-12-15', '2023.2', true, '2023-09-04 14:30:00');
+INSERT INTO up_users (id, username, email,password, is_admin,confirmed,blocked,code, type) VALUES (1, 'Admin', 'admin@admin.com', '123456789', true,true,false, 0, 'Docente ou TAE' );
+INSERT INTO up_users_role_links (id, user_id, role_id) VALUES (1, 1, 1);

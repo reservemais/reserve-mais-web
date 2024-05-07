@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "semesters",
+  "info": {
+    "singularName": "semester",
+    "pluralName": "semesters",
+    "displayName": "Semester"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "semester": {
+      "type": "string",
+      "required": true
+    },
+    "initialDayOfSemester": {
+      "type": "date",
+      "required": true
+    },
+    "lastDayOfSemester": {
+      "type": "date",
+      "required": true
+    },
+    "currentSemester": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

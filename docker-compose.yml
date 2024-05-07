@@ -1,0 +1,84 @@
+version: "3"
+
+services:
+  server:
+    container_name: server
+    build:
+      context: .
+      dockerfile: ./docker/server/${ENVIRONMENT}/Dockerfile
+      args:
+        - NODE_ENV=${ENVIRONMENT}
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: serverDB
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      NODE_ENV: ${ENVIRONMENT}
+    volumes:
+      - ./server/config:/app/config
+      - ./server/src:/app/src
+      - ./server/package.json:/package.json
+      - ./server/package-lock.json:/package-lock.json # Replace with package-lock.json if using npm
+      - ./server/.env:/app/.env
+    networks:
+      - reservas-internal
+    ports:
+      - "1337:1337"
+    depends_on:
+      - serverDB
+
+  serverDB:
+    image: postgres:12.0-alpine
+    container_name: serverDB
+    platform: linux/amd64 #for platform error on Apple M1 chips
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/ #using a volume
+    ports:
+      - "5432:5432"
+    networks:
+      - reservas-internal
+
+  client: 
+    container_name: client
+    hostname: client
+    build:
+      context: .
+      dockerfile: ./docker/client/${ENVIRONMENT}/Dockerfile
+      args:
+        - NODE_ENV=${ENVIRONMENT}
+    restart: always
+    networks:
+      - reservas-internal
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      NEXTAUTH_URL: ${NEXTAUTH_URL}
+    volumes:
+      - "./client:/app"
+      - "./client/src:/app/src"
+      - ./client/public:/app/public
+    ports:
+      - 3000:3000
+    env_file: .env
+    depends_on:
+      - server
+
+volumes:
+  postgres-data:
+
+networks:
+  reservas-internal:
+    driver: bridge
+    name: reservas-internal

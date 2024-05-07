@@ -1,0 +1,26 @@
+.rmsc {
+  --rmsc-main: #2c5282 !important;
+  --rmsc-hover: #f1f3f5;
+  --rmsc-selected: #e2e6ea;
+  --rmsc-border: #ccc;
+  --rmsc-gray: #aaa;
+  --rmsc-bg: #fff;
+  --rmsc-p: 10px; /* Spacing */
+  --rmsc-radius: 0.375rem !important; /* Radius */
+  --rmsc-h: 38px; /* Height */
+}
+
+.rmsc .dropdown-container[aria-disabled="true"]:focus-within {
+  box-shadow: #f2f3f5 0 0 0 0 !important;
+  border-color: #e8eaed !important;
+  background-color: #f2f3f5 !important;
+  cursor: not-allowed !important;
+}
+
+.rmsc .dropdown-container[aria-disabled="true"] .dropdown-heading .dropdown-heading-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  cursor: not-allowed !important;
+}
