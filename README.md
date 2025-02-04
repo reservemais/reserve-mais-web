@@ -12,7 +12,9 @@ Sistemas de Reservas de ambientes
 
 ## Instalação
 
-2. Instale as dependências do Front-end (client):
+1. Baixar e extrair projeto
+
+3. Instale as dependências do Front-end (client):
 ```bash
   cd nome-do-projeto
   cd client
